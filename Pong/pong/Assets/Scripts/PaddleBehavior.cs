@@ -2,25 +2,35 @@ using UnityEngine;
 
 public class PaddleBehavior : MonoBehaviour
 {
-    private float _speed = 5.0f;
+    private float _direction = 0.0f;
+    [SerializeField] private float _speed = 5.0f;
 
-    public KeyCode UpDirection = KeyCode.UpArrow;
-    public KeyCode DownDirection = KeyCode.DownArrow;
+    [SerializeField] private KeyCode UpDirection = KeyCode.UpArrow;
+    [SerializeField] private KeyCode DownDirection = KeyCode.DownArrow;
+
+    private Rigidbody2D _rb;
+
+    private void Start()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        _rb.linearVelocityY = _direction * _speed;
+    }
 
     void Update()
     {
-        float movement = 0.0f;
-     
+        _direction = 0.0f;
         if (Input.GetKey(UpDirection))
         {
-            movement += _speed;
+            _direction += 1.0f;
         }
+
         if (Input.GetKey(DownDirection))
         {
-            movement -= _speed;
+            _direction -= 1.0f;
         }
-        movement *= Time.deltaTime;
-
-        transform.Translate(0.0f, movement, 0.0f);
     }
 }

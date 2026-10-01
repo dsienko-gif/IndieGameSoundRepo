@@ -7,20 +7,31 @@ public class BallBehavior : MonoBehaviour
     [SerializeField] private float _speedIncrement = 1.1f;
     Rigidbody2D _rb;
 
+    private AudioSource _source;
+    [SerializeField] private AudioClip _wallHit;
+    [SerializeField] private AudioClip _paddleHit;
+    [SerializeField] private AudioClip _scoreHit;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _source = GetComponent<AudioSource>();
 
         ResetBall();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Brick"))
+        {
+            GameBehavior.Instance.ScorePoint(collision.gameObject.CompareTag("Brick") ? 1 : 0);
+
+            _source.PlayOneShot(_scoreHit);
+        }
         if (collision.gameObject.CompareTag("Paddle"))
         {
             if (!Mathf.Approximately(collision.rigidbody.linearVelocityY, 0.0f))
             {
-                Debug.Log("Paddle Collision mahfk");
+                
                 // We compute direction using a weighted sum, where the weights ->
                 // use a one-minus to be determined
                 Vector2 direction = _rb.linearVelocity * (1.0f - _paddleInfluence)
@@ -28,14 +39,19 @@ public class BallBehavior : MonoBehaviour
 
                 _rb.linearVelocity = _rb.linearVelocity.magnitude * direction.normalized * _speedIncrement;
             }
+            _source.PlayOneShot(_paddleHit);
+        }
+        else
+        {
+            _source.pitch = Random.Range(0.9f, 1.1f);
+            _source.volume = Random.Range(0.8f, 1.0f);
+            _source.clip = _wallHit;
+            _source.Play();
         }
     }
+   
 
-    private void OnTriggerEnter2d(Collider2D other)
-    {
-        ResetBall();
-    }
-
+ 
     private void ResetBall()
     {
         //Stop the ball
@@ -48,3 +64,4 @@ public class BallBehavior : MonoBehaviour
         _rb.AddForce(direction * _launchForce, ForceMode2D.Impulse);
     }
 }  
+    

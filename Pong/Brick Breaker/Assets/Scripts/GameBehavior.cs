@@ -3,8 +3,21 @@ using TMPro;
 public class GameBehavior : MonoBehaviour
 {
     public static GameBehavior Instance;
-
-    public Player[] Players = new Player[2];
+    [SerializeField] private TMP_Text scoreUI;
+    
+    // backing variable
+    private int _score;
+    // access point/public variable :p
+    public int Score
+    {
+        get => _score;
+        set
+        {
+            _score = value;
+            scoreUI.SetText(Score.ToString());
+        }
+    }
+  
     
     
     void Awake()
@@ -32,30 +45,8 @@ public class GameBehavior : MonoBehaviour
 
     void ResetGame()
     {
-        // initializer; condition; iterator
-        foreach (Player p in Players)
-        {
-            p.Score = 0;
-        }
+        Score = 0;
     }
 
-    public void ScorePoint(int playerNumber)
-    {
-        Players[playerNumber].Score++;
-    }
-    [SerializeField] private TMP_Text scoreUI;
-    
-    // backing variable
-    private int _score;
-    // access point/public variable :p
-    public int Score
-    {
-        get => _score;
-        set
-        {
-            _score = value;
-            scoreUI.SetText (Score.ToString());
-        }
-    }
 }
 

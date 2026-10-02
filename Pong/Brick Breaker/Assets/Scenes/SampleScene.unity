@@ -1073,11 +1073,10 @@ GameObject:
   - component: {fileID: 1067626848}
   - component: {fileID: 1067626852}
   - component: {fileID: 1067626851}
-  - component: {fileID: 1067626854}
   - component: {fileID: 1067626853}
   m_Layer: 0
   m_Name: Paddle
-  m_TagString: Player
+  m_TagString: Paddle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1242,19 +1241,6 @@ MonoBehaviour:
   _speed: 5
   RightDirection: 275
   LeftDirection: 276
---- !u!114 &1067626854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1067626845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f528ea5671e4592a4d553ccbc0d70d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  scoreUI: {fileID: 538275441}
 --- !u!1 &1186692165
 GameObject:
   m_ObjectHideFlags: 0
@@ -3248,8 +3234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af4dcd2915249529abd12b71cb0ac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameBehavior
-  Players:
-  - {fileID: 1067626854}
   scoreUI: {fileID: 538275441}
 --- !u!4 &1927115500
 Transform:

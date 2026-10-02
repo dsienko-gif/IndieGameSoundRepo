@@ -23,7 +23,7 @@ public class BallBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Brick"))
         {
-            GameBehavior.Instance.ScorePoint(collision.gameObject.CompareTag("Brick") ? 1 : 0);
+            GameBehavior.Instance.Score++;
 
             _source.PlayOneShot(_scoreHit);
         }

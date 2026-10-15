@@ -1,5 +1,5 @@
 using UnityEngine;
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class BallBehavior : MonoBehaviour
 {
     [Header("Ball Properties")]
@@ -65,13 +65,16 @@ public class BallBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        GameBehavior.Instance.ScorePoint(transform.position.x < 0 ? 1 : 0);
+        if (other.CompareTag("ScoreArea"))
+        {
+            GameBehavior.Instance.ScorePoint(transform.position.x < 0 ? 1 : 0);
 
-        _source.PlayOneShot(_scoreHit);
-    // invoke allows scheduling, and i can use the name of the file and length instead of a number
-        Invoke(nameof(DestroyBall), _scoreHit.length);
+            _source.PlayOneShot(_scoreHit);
+            // invoke allows scheduling, and i can use the name of the file and length instead of a number
+            Invoke(nameof(DestroyBall), _scoreHit.length);
 
 
+        }
     }
 
     private void CheckSteepness(ref Vector2 direction)
